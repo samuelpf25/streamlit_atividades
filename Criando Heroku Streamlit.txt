@@ -1,0 +1,45 @@
+https://www.youtube.com/watch?v=W4CBnt0nLls&t=778s
+
+heroku login
+cd diretorio
+heroku create nomedoapp --buildpack heroku/python
+git clone https://git.heroku.com/nomedoapp.git
+cd diretorio/nomedoapp
+git add .
+git commit -m "message"
+git push origin master
+
+
+
+
+Flask-Mail
+Flask
+
+
+from flask import app
+from flask_mail import Mail, Message
+    # app.config.update(dict(
+    #     DEBUG=True,
+    #     MAIL_SERVER='smtp.gmail.com',
+    #     MAIL_PORT=587,
+    #     MAIL_USE_TLS=True,
+    #     MAIL_USE_SSL=False,
+    #     MAIL_USERNAME='naoresponda.coinfra@gmail.com',
+    #     MAIL_PASSWORD='c@infra2021',
+    # ))
+    # mail = Mail(app)
+    # msg = Message(
+    #     assunto,
+    #     sender=designante,
+    #     recipients=[designante])
+    # #msg.body = "This is the email body"
+    # msg.html = conteudo
+    # #with app.open_resource("image.jpg") as fp:
+    # #    msg.attach("image.jpg", "image/jpg", fp.read())
+    # with app.app_context():
+    #     mail.send(msg)
+    # #@app.route('/test1')
+    # #def test1():
+    # #    with app.app_context():
+    # #        mail.send(msg)
+    # #    return "Sent"
