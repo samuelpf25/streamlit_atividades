@@ -66,7 +66,7 @@ lista_flux = []
 
 link = ''
 
-data1 = '01/12/2021'
+data1 = '01/03/2023'
 d = data1.replace('/', '-')
 data1 = datetime.strptime(d, '%d-%m-%Y')
 
@@ -174,9 +174,12 @@ def preencheBase():
     categorias=[]
 
     for n in df_dados.index:
-        nomes.append(df_dados['Nome'][n])
-        unidades.append(df_dados['Unidades de Medida'][n])
-        categorias.append(df_dados['Categorias'][n])
+        if (df_dados['Status'][n]=='Ativo'):
+            nomes.append(df_dados['Nome'][n])
+        if df_dados['Unidades de Medida'][n]!='':
+            unidades.append(df_dados['Unidades de Medida'][n])
+        if df_dados['Categorias'][n]!='':
+            categorias.append(df_dados['Categorias'][n])
 
     return nomes,unidades,categorias
 
