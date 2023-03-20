@@ -176,10 +176,10 @@ def preencheBase():
     for n in df_dados.index:
         if (df_dados['Status'][n]=='Ativo'):
             nomes.append(df_dados['Nome'][n])
-        if df_dados['Unidades de Medida'][n]!='':
-            unidades.append(df_dados['Unidades de Medida'][n])
-        if df_dados['Categorias'][n]!='':
-            categorias.append(df_dados['Categorias'][n])
+        #if df_dados['Unidades de Medida'][n]!='':
+        unidades.append(df_dados['Unidades de Medida'][n])
+        #if df_dados['Categorias'][n]!='':
+        categorias.append(df_dados['Categorias'][n])
 
     return nomes,unidades,categorias
 
