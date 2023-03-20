@@ -440,7 +440,7 @@ if (pg=='Atividades'):
                             conteudo = conteudo + '<br><br>' + '<b># Data Limite Prevista: </b>' + data_formatada
                             conteudo = conteudo + '<br><br>' + '<b># Status: </b>' + Status
                             conteudo = conteudo + '<br><br>' + '<b># % Executado: </b>' + calculo + f'% [Executado: {Executado} | Total: {Total}]'
-                            conteudo = conteudo + '<br><br>' + '<b># Página de Acompanhamento: </b> https://uftatividades.herokuapp.com/'
+                            conteudo = conteudo + '<br><br>' + '<b># Página de Acompanhamento: </b> https://tinyurl.com/uftatividades'
 
                             dicionario['corpo'] = conteudo
                             atualiza_celula(sheet, linha, coluna['corpo'], dicionario['corpo'])
@@ -476,7 +476,7 @@ if (pg=='Atividades'):
                             conteudo = conteudo + '<br><br>' + '<b># Data Limite Prevista: </b>' + data_formatada
                             conteudo = conteudo + '<br><br>' + '<b># Status: </b>' + Status
                             conteudo = conteudo + '<br><br>' + '<b># % Executado: </b>' + calculo + f'% [Executado: {Executado} | Total: {Total}]'
-                            conteudo = conteudo + '<br><br>' + '<b># Página de Acompanhamento: </b> https://uftatividades.herokuapp.com/'
+                            conteudo = conteudo + '<br><br>' + '<b># Página de Acompanhamento: </b> https://tinyurl.com/uftatividades'
 
                             dicionario['corpo'] = conteudo
                             atualiza_celula(sheet, linha, coluna['corpo'], dicionario['corpo'])
