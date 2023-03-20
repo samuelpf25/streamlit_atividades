@@ -66,7 +66,7 @@ lista_flux = []
 
 link = ''
 
-data1 = '01/03/2023'
+data1 = '01/12/2021'
 d = data1.replace('/', '-')
 data1 = datetime.strptime(d, '%d-%m-%Y')
 
