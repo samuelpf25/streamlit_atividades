@@ -353,7 +353,7 @@ if (pg=='Atividades'):
             Link = st.text_area('Link de arquivo/pasta (separar com ;)',value=link)
             dicionario['Link'] = Link
 
-        DataEntrega=st.date_input('Data de Entrega [ANO/MÊS/DIA]',value=data1)
+        DataEntrega=st.date_input('Data de Cadastro [ANO/MÊS/DIA]',value=data1)
         data=DataEntrega
         data_formatada=str(data.day) + '/' + str(data.month) + '/' + str(data.year)
         dicionario['Data de Entrega'] = data_formatada
@@ -439,7 +439,7 @@ if (pg=='Atividades'):
                                 conteudo = conteudo + '<br><br>' + '<b># Fluxo de Atividades: </b><br><br> &nbsp;&nbsp;&nbsp;' + Fluxo.replace(';', '<br> &nbsp;&nbsp;')
                             if (Link != ""):
                                 conteudo = conteudo + '<br><br>' + '<b># Links: </b><br>' + Link.replace(';', '<br>    ')
-                            conteudo = conteudo + '<br><br>' + '<b># Data Limite Prevista: </b>' + data_formatada
+                            conteudo = conteudo + '<br><br>' + '<b># Data de Cadastro: </b>' + data_formatada
                             conteudo = conteudo + '<br><br>' + '<b># Status: </b>' + Status
                             conteudo = conteudo + '<br><br>' + '<b># % Executado: </b>' + calculo + f'% [Executado: {Executado} | Total: {Total}]'
                             conteudo = conteudo + '<br><br>' + '<b># Página de Acompanhamento: </b> https://tinyurl.com/uftatividades'
@@ -477,7 +477,7 @@ if (pg=='Atividades'):
                                 conteudo = conteudo + '<br><br>' + '<b># Fluxo de Atividades: </b><br><br> &nbsp;&nbsp;&nbsp;' + Fluxo.replace(';', '<br> &nbsp;&nbsp;')
                             if (Link != ""):
                                 conteudo = conteudo + '<br><br>' + '<b># Links: </b><br>' + Link.replace(';', '<br>    ')
-                            conteudo = conteudo + '<br><br>' + '<b># Data Limite Prevista: </b>' + data_formatada
+                            conteudo = conteudo + '<br><br>' + '<b># Data de Cadastro: </b>' + data_formatada
                             conteudo = conteudo + '<br><br>' + '<b># Status: </b>' + Status
                             conteudo = conteudo + '<br><br>' + '<b># % Executado: </b>' + calculo + f'% [Executado: {Executado} | Total: {Total}]'
                             conteudo = conteudo + '<br><br>' + '<b># Página de Acompanhamento: </b> https://tinyurl.com/uftatividades'
@@ -687,7 +687,7 @@ elif (pg=='Acompanhamento'):
     todos = st.radio('Filtro',['Todos','Responsável','Designado por'])
     statusSelecionado = st.multiselect('Status',status_prov)
     #print(statusSelecionado)
-    data_sel = st.selectbox('Mês/Ano de entrega',sorted(mes_ano))
+    data_sel = st.selectbox('Mês/Ano de cadastro',sorted(mes_ano))
     col=[]
     n=0
     for i in range(len(cod)):
