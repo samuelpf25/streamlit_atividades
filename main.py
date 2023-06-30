@@ -5,6 +5,7 @@
 
 #IMPORTAÇÕES
 from datetime import datetime
+from datetime import date
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import streamlit as st
@@ -66,7 +67,11 @@ lista_flux = []
 
 link = ''
 
-data1 = '01/12/2021'
+data_atual = date.today()
+data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month,
+data_atual.year)
+
+data1 = data_em_texto
 d = data1.replace('/', '-')
 data1 = datetime.strptime(d, '%d-%m-%Y')
 
