@@ -1,4 +1,4 @@
-
+#data de edição 30/06/2023
 #**********************************************************************************************************************
 
 #**********************************************************************************************************************
@@ -297,7 +297,7 @@ if (pg=='Atividades'):
 
             data2 = lista[coluna['data_alerta'] - 1]
             if data2 == '':
-                data2 = '01/01/2022'
+                data2 = '01/01/2023'
             d = data2.replace('/', '-')
             data2 = datetime.strptime(d, '%d-%m-%Y')
 
@@ -321,37 +321,37 @@ if (pg=='Atividades'):
             statu='A iniciar'
         if (int(execut)==int(tot)):
             statu = 'Concluído'
+        with st.expander('Detalhamento de atividade'):
+            Status = st.selectbox('Status', status_lista,index = status_lista.index(statu))
+            dicionario['Status'] = Status
 
-        Status = st.selectbox('Status', status_lista,index = status_lista.index(statu))
-        dicionario['Status'] = Status
+            Unidade = st.selectbox('Unidade de Medida da Atividade', unidades,index=unidades.index(unid))
+            dicionario['Unidade de Medida'] = Unidade
 
-        Unidade = st.selectbox('Unidade de Medida da Atividade', unidades,index=unidades.index(unid))
-        dicionario['Unidade de Medida'] = Unidade
+            Executado = st.number_input('Executado', format="%i", step=1, min_value=0, value=int(execut)) #.text_input('Executado',value=execut)
+            dicionario['Executado'] = Executado
 
-        Executado = st.number_input('Executado', format="%i", step=1, min_value=0, value=int(execut)) #.text_input('Executado',value=execut)
-        dicionario['Executado'] = Executado
+            Total = st.number_input('Total', format="%i", step=1, min_value=0, value=int(tot))  # .text_input('Total',value=tot)
+            dicionario['Total'] = Total
 
-        Total = st.number_input('Total', format="%i", step=1, min_value=0, value=int(tot))  # .text_input('Total',value=tot)
-        dicionario['Total'] = Total
+            Categoria = st.selectbox('Categoria', categorias,index=categorias.index(categ))
+            dicionario['Categoria'] = Categoria
 
-        Categoria = st.selectbox('Categoria', categorias,index=categorias.index(categ))
-        dicionario['Categoria'] = Categoria
+            Fluxo = st.text_area('Fluxo de Atividades (separar com ;)', value=flux)
+            dicionario['Fluxo'] = Fluxo
 
-        Fluxo = st.text_area('Fluxo de Atividades (separar com ;)', value=flux)
-        dicionario['Fluxo'] = Fluxo
+            #verifica intersecção de listas convertendo lista em conjunto (set)
+            if set(vinc).intersection(cod):
+                print('atividade encontrada')
+            else:
+                print('atividade não encontrada')
+                vinc=[]
 
-        #verifica intersecção de listas convertendo lista em conjunto (set)
-        if set(vinc).intersection(cod):
-            print('atividade encontrada')
-        else:
-            print('atividade não encontrada')
-            vinc=[]
+            Vinculo = st.multiselect('Vinculado à(s) atividade',cod,default=vinc)
+            dicionario['Vinculado a Atividade'] = ';'.join(Vinculo)
 
-        Vinculo = st.multiselect('Vinculado à(s) atividade',cod,default=vinc)
-        dicionario['Vinculado a Atividade'] = ';'.join(Vinculo)
-
-        Link = st.text_area('Link de arquivo/pasta (separar com ;)',value=link)
-        dicionario['Link'] = Link
+            Link = st.text_area('Link de arquivo/pasta (separar com ;)',value=link)
+            dicionario['Link'] = Link
 
         DataEntrega=st.date_input('Data de Entrega [ANO/MÊS/DIA]',value=data1)
         data=DataEntrega
@@ -379,7 +379,7 @@ if (pg=='Atividades'):
                 lista_emails.append(df_dados['e-mail'][sorted(nomes).index(item)])
         itens = aux
 
-        copia_email_enviar = st.multiselect('Informar sobre atualizações da atividade também para',nomes,itens)
+        #copia_email_enviar = st.multiselect('Informar sobre atualizações da atividade também para',nomes,itens)
 
         with st.expander('Criar Alerta'):
             alerta = st.text_area('Observação do alerta:',value=text_alerta)
@@ -435,8 +435,10 @@ if (pg=='Atividades'):
                             conteudo = conteudo + '<br><br>' + '<b># Designado por: </b>' + Designado_por
                             conteudo = conteudo + '<br><br>' + '<b># Responsável: </b>' + Responsavel
                             conteudo = conteudo + '<br><br>' + '<b># Descrição: </b>' + Descricao
-                            conteudo = conteudo + '<br><br>' + '<b># Fluxo de Atividades: </b><br><br> &nbsp;&nbsp;&nbsp;' + Fluxo.replace(';', '<br> &nbsp;&nbsp;')
-                            conteudo = conteudo + '<br><br>' + '<b># Links: </b><br>' + Link.replace(';', '<br>    ')
+                            if (Fluxo != ""):
+                                conteudo = conteudo + '<br><br>' + '<b># Fluxo de Atividades: </b><br><br> &nbsp;&nbsp;&nbsp;' + Fluxo.replace(';', '<br> &nbsp;&nbsp;')
+                            if (Link != ""):
+                                conteudo = conteudo + '<br><br>' + '<b># Links: </b><br>' + Link.replace(';', '<br>    ')
                             conteudo = conteudo + '<br><br>' + '<b># Data Limite Prevista: </b>' + data_formatada
                             conteudo = conteudo + '<br><br>' + '<b># Status: </b>' + Status
                             conteudo = conteudo + '<br><br>' + '<b># % Executado: </b>' + calculo + f'% [Executado: {Executado} | Total: {Total}]'
@@ -471,8 +473,10 @@ if (pg=='Atividades'):
                             conteudo = conteudo + '<br><br>' + '<b># Designado por: </b>' + Designado_por
                             conteudo = conteudo + '<br><br>' + '<b># Responsável: </b>' + Responsavel
                             conteudo = conteudo + '<br><br>' + '<b># Descrição: </b>' + Descricao
-                            conteudo = conteudo + '<br><br>' + '<b># Fluxo de Atividades: </b><br><br> &nbsp;&nbsp;&nbsp;' + Fluxo.replace(';', '<br> &nbsp;&nbsp;')
-                            conteudo = conteudo + '<br><br>' + '<b># Links: </b><br>' + Link.replace(';', '<br>    ')
+                            if (Fluxo!=""):
+                                conteudo = conteudo + '<br><br>' + '<b># Fluxo de Atividades: </b><br><br> &nbsp;&nbsp;&nbsp;' + Fluxo.replace(';', '<br> &nbsp;&nbsp;')
+                            if (Link != ""):
+                                conteudo = conteudo + '<br><br>' + '<b># Links: </b><br>' + Link.replace(';', '<br>    ')
                             conteudo = conteudo + '<br><br>' + '<b># Data Limite Prevista: </b>' + data_formatada
                             conteudo = conteudo + '<br><br>' + '<b># Status: </b>' + Status
                             conteudo = conteudo + '<br><br>' + '<b># % Executado: </b>' + calculo + f'% [Executado: {Executado} | Total: {Total}]'
@@ -656,7 +660,10 @@ elif (pg=='Acompanhamento'):
 
     #conectar na planilha
     sheet, dados, df = conexao(pasta="Atividades - Estagiários",aba='Dados')
-    nomes = [df['Nome'][n] for n in df.index]
+    #nomes = [df['Nome'][n] for n in df.index]
+    sheet, dados, df_dados = conexao(pasta="Atividades - Estagiários",aba='Dados')
+
+    nomes, unidades, categorias = preencheBase()
 
     sheet, dados, df = conexao(pasta="Atividades - Estagiários", aba='Atividades')
     cod = [df['Código'][n] for n in df.index]
@@ -665,17 +672,26 @@ elif (pg=='Acompanhamento'):
     execut = [df['Executado'][n] for n in df.index]
     data_entrega = [df['Data de Entrega'][n] for n in df.index]
     stat = [df['Status'][n] for n in df.index]
+    datas = [df['mes_ano'][n] for n in df.index]
+
+    mes_ano = list(set(datas))
+    mes_ano.append('Todos')
+
+    status_prov=status_lista
+    status_prov.append('Todos')
 
     listas = []
     nome_filtro = st.selectbox('Nome na atividade:', sorted(nomes))
     responsaveis = [df['Responsável'][n] for n in df.index]
     designados = [df['Designado por'][n] for n in df.index]
     todos = st.radio('Filtro',['Todos','Responsável','Designado por'])
-    statusSelecionado = st.multiselect('Status',status_lista)
+    statusSelecionado = st.multiselect('Status',status_prov)
+    #print(statusSelecionado)
+    data_sel = st.selectbox('Mês/Ano de entrega',sorted(mes_ano))
     col=[]
     n=0
     for i in range(len(cod)):
-        if (((nome_filtro == responsaveis[i]) or (nome_filtro == designados[i])) and (stat[i] in statusSelecionado) and (todos == 'Todos')):
+        if (((nome_filtro == responsaveis[i]) or (nome_filtro == designados[i])) and (stat[i] in statusSelecionado or statusSelecionado==['Todos']) and (todos == 'Todos') and (datas[i] in data_sel or data_sel=='Todos')):
             col.append('')
             col.append('')
             col[n],col[n+1] = st.columns(2)
@@ -685,7 +701,7 @@ elif (pg=='Acompanhamento'):
             calculo = int(execut[i])/int(tot[i])
             col[n+1] = st.progress(calculo)
             n += 1
-        elif ((nome_filtro == responsaveis[i]) and (stat[i] in statusSelecionado) and (todos == 'Responsável')):
+        elif ((nome_filtro == responsaveis[i]) and (stat[i] in statusSelecionado or statusSelecionado==['Todos']) and (todos == 'Responsável') and (datas[i] in data_sel or data_sel=='Todos')):
             col.append('')
             col.append('')
             col[n],col[n+1] = st.columns(2)
@@ -695,7 +711,7 @@ elif (pg=='Acompanhamento'):
             calculo = int(execut[i])/int(tot[i])
             col[n+1] = st.progress(calculo)
             n += 1
-        elif ((nome_filtro == designados[i]) and (stat[i] in statusSelecionado) and (todos == 'Designado por')):
+        elif ((nome_filtro == designados[i]) and (stat[i] in statusSelecionado or statusSelecionado==['Todos']) and (todos == 'Designado por') and (datas[i] in data_sel or data_sel=='Todos')):
             col.append('')
             col.append('')
             col[n],col[n+1] = st.columns(2)
