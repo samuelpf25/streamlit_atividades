@@ -1,4 +1,4 @@
-#data de edição 30/06/2023
+#data de edição 06/07/2023
 #**********************************************************************************************************************
 
 #**********************************************************************************************************************
@@ -700,7 +700,7 @@ elif (pg=='Acompanhamento'):
             col.append('')
             col.append('')
             col[n],col[n+1] = st.columns(2)
-            col[n] = st.text(cod[i] + '-' + ativ[i] + ' [' + data_entrega[i] + ']')
+            col[n] = st.text(cod[i] + '-' + ativ[i] + ' [' + data_entrega[i] + '] - Designado por: ' + designados[i])
             print(tot[i])
             print(execut[i])
             calculo = int(execut[i])/int(tot[i])
@@ -710,7 +710,7 @@ elif (pg=='Acompanhamento'):
             col.append('')
             col.append('')
             col[n],col[n+1] = st.columns(2)
-            col[n] = st.text(cod[i] + '-' + ativ[i] + ' [' + data_entrega[i] + ']')
+            col[n] = st.text(cod[i] + '-' + ativ[i] + ' [' + data_entrega[i] + '] - Designado por: ' + designados[i])
             print(tot[i])
             print(execut[i])
             calculo = int(execut[i])/int(tot[i])
@@ -720,7 +720,7 @@ elif (pg=='Acompanhamento'):
             col.append('')
             col.append('')
             col[n],col[n+1] = st.columns(2)
-            col[n] = st.text(cod[i] + '-' + ativ[i] + ' [' + data_entrega[i] + ']')
+            col[n] = st.text(cod[i] + '-' + ativ[i] + ' [' + data_entrega[i] + '] - Designado por: ' + designados[i])
             print(tot[i])
             print(execut[i])
             calculo = int(execut[i])/int(tot[i])
