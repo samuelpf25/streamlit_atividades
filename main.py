@@ -1,10 +1,10 @@
-#data de edição 06/07/2023
+#data de edição 27/11/2023
 #**********************************************************************************************************************
 
 #**********************************************************************************************************************
 
 #IMPORTAÇÕES
-from datetime import datetime
+from datetime import datetime, timedelta
 from datetime import date
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -188,6 +188,15 @@ def preencheBase():
 
     return nomes,unidades,categorias
 
+def data_valida(data):
+    try:
+        datetime.strptime(data, '%d/%m/%Y')
+        print('É data válida!')
+        return True
+    except ValueError:
+        print('Não é data válida! ' + data)
+        return False
+
 #**********************************************************************************************************************
 
 #**********************************************************************************************************************
@@ -301,11 +310,19 @@ if (pg=='Atividades'):
             text_alerta = lista[coluna['obs_alerta'] - 1]
 
             data2 = lista[coluna['data_alerta'] - 1]
+
+            periodico = lista[coluna['periodico'] - 1]
+
             if data2 == '':
-                data2 = '01/01/2023'
+                data2 = '01/01/' + str(datetime.year())
+            if data_valida(data2):
+                print('Data válida')
+            else:
+                data2 = '01/01/' + str(datetime.year())
+                print('Data NÃO VÁLIDA! ' + data2)
             d = data2.replace('/', '-')
             data2 = datetime.strptime(d, '%d-%m-%Y')
-
+            print(data2)
             v_alerta = lista[coluna['verif_alerta'] - 1]
 
         except Exception as e:
@@ -389,7 +406,10 @@ if (pg=='Atividades'):
         with st.expander('Criar Alerta'):
             alerta = st.text_area('Observação do alerta:',value=text_alerta)
             dicionario['obs_alerta'] = alerta
-            data_alerta = st.date_input('Data do Alerta [ANO/MÊS/DIA]',value=data2)
+            try:
+                data_alerta = st.date_input('Data do Alerta [ANO/MÊS/DIA]',value=data2)
+            except:
+                data_alerta = st.date_input('Data do Alerta [ANO/MÊS/DIA]', value=datetime.today()-timedelta(1))
             data = data_alerta
             data_formatada1 = str(data.day) + '/' + str(data.month) + '/' + str(data.year)
             dicionario['data_alerta'] = data_formatada1
