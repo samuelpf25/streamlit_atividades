@@ -34,7 +34,21 @@ status_lista=['','A iniciar','Em andamento','Pendente','Parado','Concluído']
 #Status	Vínculo	Data de Finalização
 scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 
-creds = ServiceAccountCredentials.from_json_keyfile_name("controle.json", scope)
+k = st.secrets["senha"]
+json = {
+    "auth_provider_x509_cert_url":st.secrets["auth_provider_x509_cert_url"],
+    "auth_uri":st.secrets["auth_uri"],
+    "client_email":st.secrets["client_email"],
+    "client_id":st.secrets["client_id"],
+    "client_x509_cert_url":st.secrets["client_x509_cert_url"],
+    "private_key":st.secrets["private_key"],
+    "private_key_id":st.secrets["private_key_id"],
+    "project_id":st.secrets["project_id"],
+    "token_uri":st.secrets["token_uri"],
+    "type":st.secrets["type"]
+}
+
+creds = ServiceAccountCredentials.from_json_keyfile_dict(json, scope)
 
 cliente = gspread.authorize(creds)
 
@@ -440,7 +454,7 @@ if (pg=='Atividades'):
 
         print(botao)
 
-        if botao==True and s=='456':
+        if botao==True and s==k:
             print('chegou aqui!')
             with st.spinner('Registrando nova atividade...Aguarde!'):
                 try:
@@ -479,7 +493,7 @@ if (pg=='Atividades'):
                 except Exception as e:
                     st.error('Ocorreu um erro ao tentar cadastrar novos dados! ' + str(e))
 
-        elif botao_atualiza==True and s=='456':
+        elif botao_atualiza==True and s==k:
             with st.spinner('Atualizando dados da atividade...Aguarde!'):
                 try:
                     linha=cod.index(codigo)+2
@@ -516,7 +530,7 @@ if (pg=='Atividades'):
                             st.error('Ocorreu um erro ao enviar o e-mail! ' + str(e))
                 except Exception as e:
                     st.error('Ocorreu um erro ao tentar atualizar os dados! ' + str(e))
-        elif (botao==True or botao_atualiza==True) and s!='456':
+        elif (botao==True or botao_atualiza==True) and s!=k:
             st.error('Senha incorreta!')
 
 elif (pg=='Dados de Usuários'):
@@ -585,7 +599,7 @@ elif (pg=='Dados de Usuários'):
         botao1 = col11.form_submit_button('Cadastrar Novo')
         botao_atualiza1 = col22.form_submit_button('Atualizar Existente')
 
-        if botao1 == True and s == '456':
+        if botao1 == True and s == k:
             with st.spinner('Cadastrando dados de usuário...Aguarde!'):
                 try:
                     linha = proxima_linha_vazia(sheet)
@@ -594,7 +608,7 @@ elif (pg=='Dados de Usuários'):
                     st.success('Dados Cadastrados!')
                 except:
                     st.error('Erro ao cadastrar dados!')
-        elif botao_atualiza1==True and s=='456':
+        elif botao_atualiza1==True and s==k:
             with st.spinner('Atualizando dados de usuário...Aguarde!'):
                 try:
                     linha=cod.index(codigo)+2
@@ -636,7 +650,7 @@ elif (pg=='Dados Padrões'):
             bot22 = col22.form_submit_button('Atualizar Existente_')
 
         bot=st.form_submit_button('')
-        if bot1 == True and s == '456':
+        if bot1 == True and s == k:
             del dicionario['Categorias']
             with st.spinner('Cadastrando dados...Aguarde!'):
                 try:
@@ -647,7 +661,7 @@ elif (pg=='Dados Padrões'):
                     st.success('Dados Cadastrados!')
                 except:
                     st.error('Erro ao cadastrar dados!')
-        elif bot2==True and s=='456':
+        elif bot2==True and s==k:
             del dicionario['Categorias']
             with st.spinner('Atualizando dados...Aguarde!'):
                 try:
@@ -657,7 +671,7 @@ elif (pg=='Dados Padrões'):
                     st.success('Dados Atualizados!')
                 except:
                     st.error('Ocorreu um erro ao tentar atualizar os dados!')
-        elif bot11 == True and s == '456':
+        elif bot11 == True and s == k:
             del dicionario['Unidades de Medida']
             with st.spinner('Cadastrando dados...Aguarde!'):
                 try:
@@ -667,7 +681,7 @@ elif (pg=='Dados Padrões'):
                     st.success('Dados Cadastrados!')
                 except:
                     st.error('Erro ao cadastrar dados!')
-        elif bot22==True and s=='456':
+        elif bot22==True and s==k:
             del dicionario['Unidades de Medida']
             with st.spinner('Atualizando dados...Aguarde!'):
                 try:
