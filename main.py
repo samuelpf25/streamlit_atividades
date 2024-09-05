@@ -144,12 +144,12 @@ v_alerta = ''
 
 #conexão planilha
 
-def conexao(pasta="Demandas - COINFRA",aba="Atividades"):
+def conexao(chave="1Iw70jODR8XlNorhaJ7NIsWxz-Ijo8bEuHEePfnny4yI",aba="Atividades"):
     """
     carrega os dados da planilha do google sheets
 
     """
-    sheet = cliente.open(pasta).worksheet(aba)  # Open the spreadhseet
+    sheet = cliente.open_by_key(chave).worksheet(aba)#cliente.open(pasta).worksheet(aba)  # Open the spreadhseet
     dados = sheet.get_all_records()
     df = pd.DataFrame(dados)
     return sheet,dados,df
@@ -229,11 +229,11 @@ pg=st.sidebar.radio('',['Atividades','Dados de Usuários','Dados Padrões','Acom
 if (pg=='Atividades'):
     #conectar na planilha
 
-    sheet, dados, df_dados = conexao(pasta="Demandas - COINFRA",aba='Dados')
+    sheet, dados, df_dados = conexao(chave="1Iw70jODR8XlNorhaJ7NIsWxz-Ijo8bEuHEePfnny4yI",aba='Dados')
 
     nomes,unidades,categorias=preencheBase()
 
-    sheet, dados, df = conexao(pasta="Demandas - COINFRA",aba='Atividades')
+    sheet, dados, df = conexao(chave="1Iw70jODR8XlNorhaJ7NIsWxz-Ijo8bEuHEePfnny4yI",aba='Atividades')
 
     atividades=[df['Atividade'][n] for n in df.index]
 
@@ -536,7 +536,7 @@ if (pg=='Atividades'):
 
 elif (pg=='Dados de Usuários'):
     #conectar na planilha
-    sheet, dados, df = conexao(pasta="Demandas - COINFRA",aba='Dados')
+    sheet, dados, df = conexao(chave="1Iw70jODR8XlNorhaJ7NIsWxz-Ijo8bEuHEePfnny4yI",aba='Dados')
 
     nomes = [df['Nome'][n] for n in df.index]
     cod = [df['cod'][n] for n in df.index]
@@ -620,7 +620,7 @@ elif (pg=='Dados de Usuários'):
                     st.error('Ocorreu um erro ao tentar atualizar os dados!')
 elif (pg=='Dados Padrões'):
     #conectar na planilha
-    sheet, dados, df = conexao(pasta="Demandas - COINFRA",aba='Dados')
+    sheet, dados, df = conexao(chave="1Iw70jODR8XlNorhaJ7NIsWxz-Ijo8bEuHEePfnny4yI",aba='Dados')
 
     unidades = [df['Unidades de Medida'][n] for n in df.index]
     categorias = [df['Categorias'][n] for n in df.index]
@@ -699,13 +699,13 @@ elif (pg=='Acompanhamento'):
     st.subheader(pg)
 
     #conectar na planilha
-    sheet, dados, df = conexao(pasta="Demandas - COINFRA",aba='Dados')
+    sheet, dados, df = conexao(chave="1Iw70jODR8XlNorhaJ7NIsWxz-Ijo8bEuHEePfnny4yI",aba='Dados')
     #nomes = [df['Nome'][n] for n in df.index]
-    sheet, dados, df_dados = conexao(pasta="Demandas - COINFRA",aba='Dados')
+    sheet, dados, df_dados = conexao(chave="1Iw70jODR8XlNorhaJ7NIsWxz-Ijo8bEuHEePfnny4yI",aba='Dados')
 
     nomes, unidades, categorias = preencheBase()
 
-    sheet, dados, df = conexao(pasta="Demandas - COINFRA", aba='Atividades')
+    sheet, dados, df = conexao(chave="1Iw70jODR8XlNorhaJ7NIsWxz-Ijo8bEuHEePfnny4yI", aba='Atividades')
     cod = [df['Código'][n] for n in df.index]
     ativ = [df['Atividade'][n] for n in df.index]
     tot = [df['Total'][n] for n in df.index]
