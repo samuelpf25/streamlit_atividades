@@ -25,7 +25,7 @@ from email.mime.text import MIMEText
 
 #**********************************************************************************************************************
 
-coluna={'Atividade': 3,'Descrição': 4, 'Fluxo': 5, 'Vinculado a Atividade': 6, 'Link': 7, 'Responsável': 8, 'Data de Entrega': 9, 'Status': 10,'Designado por': 11,'Unidade de Medida': 12,'Total': 13,'Executado': 14,'Categoria': 15, 'e-mail': 16, 'corpo': 19,'copia_email': 21, 'obs_alerta': 22, 'data_alerta': 23, 'v_email_alerta': 24, 'verif_alerta': 25}
+coluna={'Atividade': 3,'Descrição': 4, 'Fluxo': 5, 'Vinculado a Atividade': 6, 'Link': 7, 'Responsável': 8, 'Data de Entrega': 9, 'Status': 10,'Designado por': 11,'Unidade de Medida': 12,'Total': 13,'Executado': 14,'Categoria': 15, 'e-mail': 16, 'resp': 17, 'corpo': 19,'copia_email': 21, 'obs_alerta': 22, 'data_alerta': 23, 'v_email_alerta': 24, 'verif_alerta': 25}
 
 coluna_dados={'Nome': 3,'Status': 4, 'Vínculo': 5, 'Data de Finalização': 6, 'e-mail': 7,'Unidades de Medida': 10, 'Categorias': 11}
 
@@ -518,40 +518,41 @@ if (pg=='Atividades'):
 
         elif botao_atualiza==True and s==k:
             with st.spinner('Atualizando dados da atividade...Aguarde!'):
-                
-                linha=cod.index(codigo)+2
-                #linha = indice.index(codigo)+2
-                for chave,valor in dicionario.items():
-                    atualiza_celula(sheet, linha, coluna[chave], valor)
-                st.success('Dados Atualizados!')
+                try:
+                    linha=cod.index(codigo)+2
+                    #linha = indice.index(codigo)+2
+                    for chave,valor in dicionario.items():
+                        atualiza_celula(sheet, linha, coluna[chave], valor)
+                    st.success('Dados Atualizados!')
 
-                with st.spinner('Enviando e-mails...'):
-                    try:
-                        # dados email
-                        calculo = str(round(float(Executado) / float(Total), 2) * 100)
-                        titulo = 'Atividade ' + codigo + ' - ' + Atividade
-                        conteudo = '<b>### ATIVIDADE ###</b>'
-                        conteudo = conteudo + '<br><br>' + '<b># Atividade: </b>' + Atividade
-                        conteudo = conteudo + '<br><br>' + '<b># Designado por: </b>' + Designado_por
-                        conteudo = conteudo + '<br><br>' + '<b># Responsável: </b>' + Responsavel
-                        conteudo = conteudo + '<br><br>' + '<b># Descrição: </b>' + Descricao
-                        if (Fluxo!=""):
-                            conteudo = conteudo + '<br><br>' + '<b># Fluxo de Atividades: </b><br><br> &nbsp;&nbsp;&nbsp;' + Fluxo.replace(';', '<br> &nbsp;&nbsp;')
-                        if (Link != ""):
-                            conteudo = conteudo + '<br><br>' + '<b># Links: </b><br>' + Link.replace(';', '<br>    ')
-                        conteudo = conteudo + '<br><br>' + '<b># Data de Cadastro: </b>' + data_formatada
-                        conteudo = conteudo + '<br><br>' + '<b># Status: </b>' + Status
-                        conteudo = conteudo + '<br><br>' + '<b># % Executado: </b>' + calculo + f'% [Executado: {Executado} | Total: {Total}]'
-                        conteudo = conteudo + '<br><br>' + '<b># Página de Acompanhamento: </b> https://tinyurl.com/uftatividades'
+                    with st.spinner('Enviando e-mails...'):
+                        try:
+                            # dados email
+                            calculo = str(round(float(Executado) / float(Total), 2) * 100)
+                            titulo = 'Atividade ' + codigo + ' - ' + Atividade
+                            conteudo = '<b>### ATIVIDADE ###</b>'
+                            conteudo = conteudo + '<br><br>' + '<b># Atividade: </b>' + Atividade
+                            conteudo = conteudo + '<br><br>' + '<b># Designado por: </b>' + Designado_por
+                            conteudo = conteudo + '<br><br>' + '<b># Responsável: </b>' + Responsavel
+                            conteudo = conteudo + '<br><br>' + '<b># Descrição: </b>' + Descricao
+                            if (Fluxo!=""):
+                                conteudo = conteudo + '<br><br>' + '<b># Fluxo de Atividades: </b><br><br> &nbsp;&nbsp;&nbsp;' + Fluxo.replace(';', '<br> &nbsp;&nbsp;')
+                            if (Link != ""):
+                                conteudo = conteudo + '<br><br>' + '<b># Links: </b><br>' + Link.replace(';', '<br>    ')
+                            conteudo = conteudo + '<br><br>' + '<b># Data de Cadastro: </b>' + data_formatada
+                            conteudo = conteudo + '<br><br>' + '<b># Status: </b>' + Status
+                            conteudo = conteudo + '<br><br>' + '<b># % Executado: </b>' + calculo + f'% [Executado: {Executado} | Total: {Total}]'
+                            conteudo = conteudo + '<br><br>' + '<b># Página de Acompanhamento: </b> https://tinyurl.com/uftatividades'
 
-                        dicionario['corpo'] = conteudo
-                        atualiza_celula(sheet, linha, coluna['corpo'], dicionario['corpo'])
+                            dicionario['corpo'] = conteudo
+                            atualiza_celula(sheet, linha, coluna['corpo'], dicionario['corpo'])
 
-                        #envia_email(email_responsavel, titulo, conteudo, email_designante)
-                        st.success('E-mail enviado!')
-                    except Exception as e:
-                        st.error('Ocorreu um erro ao enviar o e-mail! ' + str(e))
-          
+                            #envia_email(email_responsavel, titulo, conteudo, email_designante)
+                            st.success('E-mail enviado!')
+                        except Exception as e:
+                            st.error('Ocorreu um erro ao enviar o e-mail! ' + str(e))
+                except Exception as e:
+                    st.error('Ocorreu um erro ao tentar atualizar os dados! ' + str(e))
         elif (botao==True or botao_atualiza==True) and s!=k:
             st.error('Senha incorreta!')
 
