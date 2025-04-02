@@ -407,7 +407,12 @@ if (pg=='Atividades'):
         emails = []
         for resp in Responsavel:
             try:
-                emails.append(df_dados['e-mail'][nomes.index(resp)])
+                hh = 0
+                for nom in df_dados['Nome']:
+                    if (nom==resp):
+                        emails.append(df_dados['e-mail'][hh])
+                    hh+=1
+
             except:
                 pass
 
