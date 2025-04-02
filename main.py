@@ -509,6 +509,7 @@ if (pg=='Atividades'):
                             titulo = 'Atividade ' + codigo + ' - ' + Atividade
                             conteudo = '<b>### ATIVIDADE ###</b>'
                             conteudo = conteudo + '<br><br>' + '<b># Atividade: </b>' + Atividade
+                            conteudo = conteudo + '<br><br>' + '<b># Tipo: </b>' + Categoria
                             conteudo = conteudo + '<br><br>' + '<b># Designado por: </b>' + Designado_por
                             conteudo = conteudo + '<br><br>' + '<b># Responsável: </b>' + Responsavel
                             conteudo = conteudo + '<br><br>' + '<b># Descrição: </b>' + Descricao
@@ -547,6 +548,7 @@ if (pg=='Atividades'):
                             titulo = 'Atividade ' + codigo + ' - ' + Atividade
                             conteudo = '<b>### ATIVIDADE ###</b>'
                             conteudo = conteudo + '<br><br>' + '<b># Atividade: </b>' + Atividade
+                            conteudo = conteudo + '<br><br>' + '<b># Tipo: </b>' + Categoria
                             conteudo = conteudo + '<br><br>' + '<b># Designado por: </b>' + Designado_por
                             conteudo = conteudo + '<br><br>' + '<b># Responsável: </b>' + Responsavel
                             conteudo = conteudo + '<br><br>' + '<b># Descrição: </b>' + Descricao
