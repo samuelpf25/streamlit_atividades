@@ -356,7 +356,13 @@ if (pg=='Atividades'):
         Descricao = st.text_area('Descrição da atividade',value=desc)
         dicionario['Descrição'] = Descricao
 
-
+        Categoria = st.selectbox('Categoria', categorias, index=categorias.index(categ))
+        dicionario['Categoria'] = Categoria
+        if Categoria == 'RECORRENTE':
+            intervalo_dias = st.number_input('Intervalo de Dias para Envio de Atividade', format="%i", step=1,
+                                             min_value=0, value=int(intervalo))
+            dicionario['intervalo_dias'] = intervalo_dias
+            
         if statu == '':
             statu='A iniciar'
         if (int(execut)==int(tot)):
@@ -374,11 +380,6 @@ if (pg=='Atividades'):
             Total = st.number_input('Total', format="%i", step=1, min_value=0, value=int(tot))  # .text_input('Total',value=tot)
             dicionario['Total'] = Total
 
-            Categoria = st.selectbox('Categoria', categorias,index=categorias.index(categ))
-            dicionario['Categoria'] = Categoria
-            if Categoria=='RECORRENTE':
-                intervalo_dias = st.number_input('Intervalo de Dias para Envio de Atividade', format="%i", step=1, min_value=0, value=int(intervalo))
-                dicionario['intervalo_dias'] = intervalo_dias
 
             Fluxo = st.text_area('Fluxo de Atividades (separar com ;)', value=flux)
             dicionario['Fluxo'] = Fluxo
