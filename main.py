@@ -131,6 +131,7 @@ data2 = data1
 
 v_alerta = ''
 
+intervalo = 0
 
 #**********************************************************************************************************************
 
@@ -359,6 +360,10 @@ if (pg=='Atividades'):
 
         if statu == '':
             statu='A iniciar'
+
+        if statu == 'Concluído':
+            execut = tot
+
         if (int(execut)==int(tot)):
             statu = 'Concluído'
         with st.expander('Detalhamento de atividade'):
