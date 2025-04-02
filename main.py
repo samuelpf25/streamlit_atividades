@@ -1,4 +1,4 @@
-#data de edição 27/11/2023
+#data de edição 02/04/2025
 #**********************************************************************************************************************
 
 #**********************************************************************************************************************
@@ -394,11 +394,24 @@ if (pg=='Atividades'):
         data=DataEntrega
         data_formatada=str(data.day) + '/' + str(data.month) + '/' + str(data.year)
         dicionario['Data de Entrega'] = data_formatada
+
+        nomes_selecionados = nome.split(",") if nome else []
+
         if (nome!=''):
-            Responsavel = st.selectbox('Responsável', sorted(nomes), index=sorted(nomes).index(nome))
+            Responsavel = st.multiselect('Responsável', sorted(nomes), nomes_selecionados)
         else:
-            Responsavel = st.selectbox('Responsável', sorted(nomes))
+            Responsavel = st.multiselect('Responsável', sorted(nomes))
+
+        emails = []
+        for resp in Responsavel:
+            emails.append(df_dados['e-mail'][nomes.index(resp)])
+
+        Responsavel = ",".join(Responsavel)
+        emails = ",".join(emails)
+
         dicionario['Responsável'] = Responsavel
+        dicionario['resp'] = emails
+
         email_responsavel=df_dados['e-mail'][nomes.index(Responsavel)]
 
         if desi!='':
