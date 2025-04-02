@@ -408,7 +408,7 @@ if (pg=='Atividades'):
             try:
                 emails.append(df_dados['e-mail'][nomes.index(resp)])
             except:
-                pass    
+                pass
 
         Responsavel = ",".join(Responsavel)
         emails = ",".join(emails)
@@ -420,7 +420,10 @@ if (pg=='Atividades'):
         #email_responsavel=df_dados['e-mail'][nomes.index(Responsavel)]
 
         if desi!='':
-            Designado_por = st.selectbox('Designado por', sorted(nomes),index=sorted(nomes).index(desi))
+            try:
+                Designado_por = st.selectbox('Designado por', sorted(nomes),index=sorted(nomes).index(desi))
+            except:
+                Designado_por = st.selectbox('Designado por', sorted(nomes))
         else:
             Designado_por = st.selectbox('Designado por', sorted(nomes))
         dicionario['Designado por'] = Designado_por
