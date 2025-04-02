@@ -248,15 +248,18 @@ if (pg=='Atividades'):
         indice = []
         nome_filtro = st.selectbox('Nome na atividade:',sorted(nomes))
         responsaveis = [df['Responsável'][n] for n in df.index]
+        nomes_selecionados = responsaveis.split(",") if responsaveis else []
+        responsaveis = nomes_selecionados
+        
         designados = [df['Designado por'][n] for n in df.index]
         stat = [df['Status'][n] for n in df.index]
         todos = st.radio('Filtro', ['Todos', 'Responsável', 'Designado por'])
         statusSelecionado = st.multiselect('Status', status_lista)
 
         for i in range(len(cod)):
-            if (((nome_filtro == responsaveis[i]) or (nome_filtro == designados[i])) and (stat[i] in statusSelecionado) and (todos == 'Todos')):
+            if (((nome_filtro in responsaveis[i]) or (nome_filtro == designados[i])) and (stat[i] in statusSelecionado) and (todos == 'Todos')):
                 listas.append(cod[i] + ' - ' + atividades[i])
-            elif ((nome_filtro == responsaveis[i]) and (stat[i] in statusSelecionado) and (todos == 'Responsável')):
+            elif ((nome_filtro in responsaveis[i]) and (stat[i] in statusSelecionado) and (todos == 'Responsável')):
                 listas.append(cod[i] + ' - ' + atividades[i])
             elif ((nome_filtro == designados[i]) and (stat[i] in statusSelecionado) and (todos == 'Designado por')):
                 listas.append(cod[i] + ' - ' + atividades[i])
