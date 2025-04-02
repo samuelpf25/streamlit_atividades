@@ -393,6 +393,7 @@ if (pg=='Atividades'):
         DataEntrega=st.date_input('Data de Cadastro [ANO/MÊS/DIA]',value=data1)
         data=DataEntrega
         data_formatada=str(data.day) + '/' + str(data.month) + '/' + str(data.year)
+
         dicionario['Data de Entrega'] = data_formatada
 
         nomes_selecionados = nome.split(",") if nome else []
@@ -404,15 +405,19 @@ if (pg=='Atividades'):
 
         emails = []
         for resp in Responsavel:
-            emails.append(df_dados['e-mail'][nomes.index(resp)])
+            try:
+                emails.append(df_dados['e-mail'][nomes.index(resp)])
+            except:
+                pass    
 
         Responsavel = ",".join(Responsavel)
         emails = ",".join(emails)
 
         dicionario['Responsável'] = Responsavel
+
         dicionario['resp'] = emails
 
-        email_responsavel=df_dados['e-mail'][nomes.index(Responsavel)]
+        #email_responsavel=df_dados['e-mail'][nomes.index(Responsavel)]
 
         if desi!='':
             Designado_por = st.selectbox('Designado por', sorted(nomes),index=sorted(nomes).index(desi))
