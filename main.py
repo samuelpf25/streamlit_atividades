@@ -25,7 +25,7 @@ from email.mime.text import MIMEText
 
 #**********************************************************************************************************************
 
-coluna={'Atividade': 3,'Descrição': 4, 'Fluxo': 5, 'Vinculado a Atividade': 6, 'Link': 7, 'Responsável': 8, 'Data de Entrega': 9, 'Status': 10,'Designado por': 11,'Unidade de Medida': 12,'Total': 13,'Executado': 14,'Categoria': 15, 'e-mail': 16, 'resp': 17, 'corpo': 19,'copia_email': 21, 'obs_alerta': 22, 'data_alerta': 23, 'v_email_alerta': 24, 'verif_alerta': 25}
+coluna={'Atividade': 3,'Descrição': 4, 'Fluxo': 5, 'Vinculado a Atividade': 6, 'Link': 7, 'Responsável': 8, 'Data de Entrega': 9, 'Status': 10,'Designado por': 11,'Unidade de Medida': 12,'Total': 13,'Executado': 14,'Categoria': 15, 'e-mail': 16, 'resp': 17, 'corpo': 19,'copia_email': 21, 'obs_alerta': 22, 'data_alerta': 23, 'v_email_alerta': 24, 'verif_alerta': 25, 'intervalo_dias': 30}
 
 coluna_dados={'Nome': 3,'Status': 4, 'Vínculo': 5, 'Data de Finalização': 6, 'e-mail': 7,'Unidades de Medida': 10, 'Categorias': 11}
 
@@ -329,6 +329,8 @@ if (pg=='Atividades'):
 
             periodico = lista[coluna['periodico'] - 1]
 
+            intervalo = lista[coluna['intervalo_dias'] - 1]
+
             if data2 == '':
                 data2 = '01/01/' + str(datetime.year())
             if data_valida(data2):
@@ -374,6 +376,9 @@ if (pg=='Atividades'):
 
             Categoria = st.selectbox('Categoria', categorias,index=categorias.index(categ))
             dicionario['Categoria'] = Categoria
+            if Categoria=='RECORRENTE':
+                intervalo_dias = st.number_input('Intervalo de Dias para Envio de Atividade', format="%i", step=1, min_value=0, value=int(intervalo))
+                dicionario['intervalo_dias'] = intervalo_dias
 
             Fluxo = st.text_area('Fluxo de Atividades (separar com ;)', value=flux)
             dicionario['Fluxo'] = Fluxo
