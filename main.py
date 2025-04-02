@@ -248,9 +248,9 @@ if (pg=='Atividades'):
         indice = []
         nome_filtro = st.selectbox('Nome na atividade:',sorted(nomes))
         responsaveis = [df['Responsável'][n] for n in df.index]
-        nomes_selecionados = responsaveis.split(",") if responsaveis else []
+        nomes_selecionados = responsaveis[0].split(",") if responsaveis[0] else []
         responsaveis = nomes_selecionados
-        
+
         designados = [df['Designado por'][n] for n in df.index]
         stat = [df['Status'][n] for n in df.index]
         todos = st.radio('Filtro', ['Todos', 'Responsável', 'Designado por'])
