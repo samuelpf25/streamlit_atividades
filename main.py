@@ -407,12 +407,14 @@ if (pg=='Atividades'):
 
         dicionario['Data de Entrega'] = data_formatada
 
+        nomes_validos = sorted(nomes)
         nomes_selecionados = nome.split(",") if nome else []
+        
+        # Filtra apenas nomes que estão em nomes_validos
+        nomes_selecionados_filtrados = [n for n in nomes_selecionados if n in nomes_validos]
+        
+        Responsavel = st.multiselect('Responsável', nomes_validos, nomes_selecionados_filtrados)
 
-        if (nome!=''):
-            Responsavel = st.multiselect('Responsável', sorted(nomes), nomes_selecionados)
-        else:
-            Responsavel = st.multiselect('Responsável', sorted(nomes))
 
         emails = []
         for resp in Responsavel:
